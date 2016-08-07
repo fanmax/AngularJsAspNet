@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Painel Administrativo</title>
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <script src="~/js/main.js"></script>
+    <link href="~/node_modules/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+</head>
+<body>    
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/dashboard">Livraria</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+
+            <ul class="nav navbar-nav">
+                <li><a ng-click="navCollapsed = !navCollapsed" href="#/dashboard">Dashboard</a></li>
+                <li><a ng-click="navCollapsed = !navCollapsed" href="#/autores/list">Autores</a></li>
+                <li><a ng-click="navCollapsed = !navCollapsed" href="#/generos/list">Generos</a></li>
+                <li><a ng-click="navCollapsed = !navCollapsed" href="#/livros/list">Livros</a></li> 
+            </ul>            
+        </div><!-- /.navbar-collapse -->
+    </nav>
+    <div ng-show="loader" class="loader-overlay">
+        <div class="loader">
+            <span class="anim"></span>
+        </div>
+    </div>
+    <div ng-view></div>
+</body>
+</html>

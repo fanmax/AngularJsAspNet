@@ -1,0 +1,67 @@
+﻿<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">Livros</div>
+        <form name="form" role="form">
+            <div class="panel-body">                           
+                <input type="hidden" ng-model="vm.livro.Id">
+                <div ng-class="{'has-success' : form.titulo.$valid,'has-error': form.titulo.$invalid && !form.titulo.$pristine}" class="form-group has-feedback">
+                    <label for="inputTitulo">Titulo</label>
+                    <input type="text" name="titulo" ng-model="vm.livro.Titulo" ng-minlength="4" required class="form-control" id="inputTitulo" placeholder="Titulo do Livro">
+                    <i ng-class="{'glyphicon-ok': form.titulo.$valid,'glyphicon-remove': form.titulo.$invalid && !form.titulo.$pristine}" class="form-control-feedback glyphicon"></i>
+                    &nbsp;
+                    <div ng-class="{'alert alert-danger' : !form.titulo.$pristine && form.titulo.$invalid}" ng-show="!form.titulo.$pristine" ng-messages="form.titulo.$error">
+                        <div ng-message="required">Campo obrigatório</div>
+                        <div ng-message="minlength">Mínimo de 8 caracteres</div>
+                    </div>
+                </div>
+
+                <div ng-class="{'has-success' : form.valor.$valid,'has-error': form.valor.$invalid && !form.valor.$pristine}" class="form-group has-feedback">
+                    <label for="inputTitulo">Valor</label>
+                    <input type="text" name="valor" ng-model="vm.livro.Valor" ng-pattern="/^\d+(\.\d{3})?(\,\d{2}$)/" required class="form-control" id="inputValor" placeholder="Ex.: 10,00">
+                    <i ng-class="{'glyphicon-ok': form.valor.$valid,'glyphicon-remove': form.valor.$invalid && !form.valor.$pristine}" class="form-control-feedback glyphicon"></i>
+                    &nbsp;
+                    <div ng-class="{'alert alert-danger' : !form.valor.$pristine && form.valor.$invalid}" ng-show="!form.valor.$pristine" ng-messages="form.valor.$error">
+                        <div ng-message="required">Campo obrigatório</div>
+                        <div ng-message="pattern">Verifique o formato do campo</div>
+                    </div>
+                </div>
+
+                <div ng-class="{'has-success' : form.quantidade.$valid,'has-error': form.quantidade.$invalid && !form.quantidade.$pristine}" class="form-group has-feedback">
+                    <label for="inputTitulo">Quantidade</label>
+                    <input type="text" name="quantidade" ng-model="vm.livro.Quantidade" ng-pattern="/^\d+(\d{0}$)/" required class="form-control" id="inputQuantidade" placeholder="Ex.: 5">
+                    <i ng-class="{'glyphicon-ok': form.quantidade.$valid,'glyphicon-remove': form.quantidade.$invalid && !form.quantidade.$pristine}" class="form-control-feedback glyphicon"></i>
+                    &nbsp;
+                    <div ng-class="{'alert alert-danger' : !form.quantidade.$pristine && form.quantidade.$invalid}" ng-show="!form.quantidade.$pristine" ng-messages="form.quantidade.$error">
+                        <div ng-message="required">Campo obrigatório</div>
+                        <div ng-message="pattern">Verifique o formato do campo</div>
+                    </div>
+                </div>
+
+                <div ng-class="{'has-success' : form.AutorId.$valid,'has-error': form.AutorId.$invalid && !form.AutorId.$pristine}" class="form-group has-feedback">
+                    <label for="inputTitulo">Autor</label>
+                    <select required name="AutorId" class="form-control" ng-options="a as a.Nome for a in vm.autores track by a.Id" ng-model="vm.livro.Autores">
+                        <option value="">-- Selecione um Autor --</option>                        
+                    </select>                    
+                    <div ng-class="{'alert alert-danger' : !form.AutorId.$pristine && form.AutorId.$invalid}" ng-show="!form.AutorId.$pristine" ng-messages="form.AutorId.$error">
+                        <div ng-message="required">Campo obrigatório</div>                        
+                    </div>
+                </div>       
+                
+                <div ng-class="{'has-success' : form.GeneroId.$valid,'has-error': form.GeneroId.$invalid && !form.GeneroId.$pristine}" class="form-group has-feedback">
+                    <label for="inputTitulo">Genero</label>
+                    <select required name="GeneroId" class="form-control" ng-options="a as a.Nome for a in vm.generos track by a.Id" ng-model="vm.livro.Generos">
+                        <option value="">-- Selecione um Autor --</option>
+                    </select>
+                    <div ng-class="{'alert alert-danger' : !form.GeneroId.$pristine && form.GeneroId.$invalid}" ng-show="!form.GeneroId.$pristine" ng-messages="form.GeneroId.$error">
+                        <div ng-message="required">Campo obrigatório</div>                        
+                    </div>
+                </div>           
+
+            </div>
+        </form>
+        <div class="panel-footer">
+            <a class="btn btn-default" href="#/livros/list">Voltar</a>
+            <button class="btn btn-success pull-right" ng-disabled="form.$invalid" ng-click="vm.submitForm(vm.livro)">Salvar</button>
+        </div>
+    </div>
+</div>

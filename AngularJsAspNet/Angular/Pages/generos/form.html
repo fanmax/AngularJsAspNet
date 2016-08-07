@@ -1,0 +1,26 @@
+﻿<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">Generos</div>
+        <form name="form" role="form">
+            <div class="panel-body">                
+                <input type="hidden" ng-model="vm.genero.Id">
+                <div ng-class="{'has-success' : form.nome.$valid,'has-error': form.nome.$invalid && !form.nome.$pristine}" class="form-group has-feedback">
+                    <label for="inputNome">Nome</label>
+                    <input type="text" name="nome" ng-model="vm.genero.Nome" ng-minlength="4" required class="form-control" id="inputNome" placeholder="Nome do artista">
+                    <i ng-class="{'glyphicon-ok': form.nome.$valid,'glyphicon-remove': form.nome.$invalid && !form.nome.$pristine}" class="form-control-feedback glyphicon"></i>
+                    &nbsp;
+                    <div ng-class="{'alert alert-danger' : !form.nome.$pristine && form.nome.$invalid}" ng-show="!form.nome.$pristine" ng-messages="form.nome.$error">
+                        <div ng-message="required">Campo obrigatório</div>
+                        <div ng-message="minlength">Mínimo de 8 caracteres</div>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+        <div class="panel-footer">
+            <a class="btn btn-default" href="#/generos/list">Voltar</a>
+            <button class="btn btn-success pull-right" ng-disabled="form.$invalid" ng-click="vm.submitForm(vm.genero)">Salvar</button>
+        </div>
+    </div>
+</div>
