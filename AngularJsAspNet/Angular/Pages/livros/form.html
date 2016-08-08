@@ -2,7 +2,8 @@
     <div class="panel panel-default">
         <div class="panel-heading">Livros</div>
         <form name="form" role="form">
-            <div class="panel-body">                           
+            <div class="panel-body"> 
+                                                       
                 <input type="hidden" ng-model="vm.livro.Id">
                 <div ng-class="{'has-success' : form.titulo.$valid,'has-error': form.titulo.$invalid && !form.titulo.$pristine}" class="form-group has-feedback">
                     <label for="inputTitulo">Titulo</label>
@@ -17,7 +18,7 @@
 
                 <div ng-class="{'has-success' : form.valor.$valid,'has-error': form.valor.$invalid && !form.valor.$pristine}" class="form-group has-feedback">
                     <label for="inputTitulo">Valor</label>
-                    <input type="text" name="valor" ng-model="vm.livro.Valor" ng-pattern="/^\d+(\.\d{3})?(\,\d{2}$)/" required class="form-control" id="inputValor" placeholder="Ex.: 10,00">
+                    <input type="text" name="valor" ng-value="vm.livro.Valor" ng-model="vm.livro.Valor" ng-pattern="/^\d+(\.\d{3})?(\,\d{2}$)/" required class="form-control" id="inputValor" placeholder="Ex.: 10,00">
                     <i ng-class="{'glyphicon-ok': form.valor.$valid,'glyphicon-remove': form.valor.$invalid && !form.valor.$pristine}" class="form-control-feedback glyphicon"></i>
                     &nbsp;
                     <div ng-class="{'alert alert-danger' : !form.valor.$pristine && form.valor.$invalid}" ng-show="!form.valor.$pristine" ng-messages="form.valor.$error">

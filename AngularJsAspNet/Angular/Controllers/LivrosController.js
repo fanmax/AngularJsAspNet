@@ -1,34 +1,48 @@
-﻿module.exports = function ($routeParams, $location, LivrosService, AutoresService, GenerosService) {    
+﻿function LivrosController($routeParams, $location, LivrosService, NgTableParams, AutoresService, GenerosService) {
     
     var vm = this;  
 
-    vm.action = $routeParams.action;
-
-    vm.table = {
-        maxSize: 5,
-        totalItems: 1,
-        currentPage: 1,
-        sort: "asc",
-        sortColumn: "Id",
-        setPage: function (pageNo) {
-            vm.table.currentPage = pageNo;
-        },
-        pageChanged: function () {            
-            listLivros();
-        },
-        alterSort: function (column) {            
-            vm.table.sortColumn = column;
-            if (vm.table.sort == "asc") vm.table.sort = "desc"; else vm.table.sort = "asc";
-            listLivros();
-        },
-    };            
-
-    vm.livros;
+    vm.action = $routeParams.action;      
 
     vm.autores;
     vm.generos;
 
     vm.livro;
+
+    if (vm.action == "list") {
+        vm.tableParams = new NgTableParams({
+            page: 1,            
+            sorting: { Titulo: "asc" }
+        }, {
+            getData: function (params) {
+
+                var param = {
+                    currentPage: params.page(),
+                    maxSize: params.count(),                    
+                    filter: params.filter(),
+                    sortColumn: "",
+                    sort: "",
+                    filter: params.filter()
+                };                
+
+                if (params.orderBy()[0]) {
+                    var orderBy = params.orderBy()[0];
+                    param.sortColumn = orderBy.substring(1);
+                    param.sort = orderBy[0] == '+' ? 'asc' : 'desc';                    
+                }
+
+                console.log(param);
+                
+
+                return LivrosService.list(param).then(function (response) {
+                    params.total(response.data.totalItems);
+                    return response.data.livros;
+                }, function (response) {
+                    swal("Ops!", "Ocorreu um erro!", "error");
+                });
+            }
+        });
+    }
 
     if (vm.action == "edit") vm.livro = LivrosService.livro;
 
@@ -52,27 +66,6 @@
             swal("Ops!", "Ocorreu um erro!", "error");
         });
     }    
-
-    var listLivros = function () {
-      
-        var param = {
-            currentPage: vm.table.currentPage,
-            maxSize: vm.table.maxSize,
-            sortColumn: vm.table.sortColumn,
-            sort: vm.table.sort,
-        };
-        
-        LivrosService.list(param).then(function (response) {            
-            vm.livros = response.data.livros;
-            vm.table.totalItems = response.data.totalItems;
-        }, function (response) {
-            swal("Ops!", "Ocorreu um erro!", "error");
-        });
-        
-
-    };
-    
-    if (vm.action == "list") listLivros();
 
     vm.submitForm = function (data) {        
         if (vm.action == "add") insert(data);
@@ -128,5 +121,9 @@
         }, function (response) {
             swal("Ops!", "Ocorreu um erro!", "error");
         });
-    }
+    }    
+
 }
+
+LivrosController.$inject = ['$routeParams', '$location', 'LivrosService', 'NgTableParams', 'AutoresService', 'GenerosService'];
+module.exports = LivrosController;

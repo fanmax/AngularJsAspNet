@@ -1,4 +1,4 @@
-﻿module.exports = function ($http, $httpParamSerializerJQLike, $q, $rootScope) {
+﻿function GenerosService($http, $httpParamSerializerJQLike, $q, $rootScope) {
 
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";    
 
@@ -16,12 +16,7 @@
         $http({
             url: '/generos/list',
             method: "POST",
-            data: $httpParamSerializerJQLike({
-                'currentPage': param.currentPage,
-                'maxSize': param.maxSize,
-                'sortColumn': param.sortColumn,
-                'sort': param.sort,
-            }),
+            data: $httpParamSerializerJQLike(param),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             }
@@ -100,3 +95,6 @@
     }
 
 }
+
+GenerosService.$inject = ['$http', '$httpParamSerializerJQLike', '$q', '$rootScope'];
+module.exports = GenerosService;

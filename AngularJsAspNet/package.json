@@ -5,7 +5,10 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
+    "angular-datatables": "^0.5.4",
+    "angular-i18n": "^1.5.8",
     "angular-messages": "^1.5.8",
+    "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-ui-bootstrap": "^2.0.0",
     "bootstrap": "^3.3.6",
@@ -13,6 +16,7 @@
     "gulp-browserify": "^0.5.1",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
+    "ng-table": "^1.0.0",
     "sweetalert": "^1.1.3"
   }
 }

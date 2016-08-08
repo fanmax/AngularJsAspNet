@@ -4,60 +4,23 @@
             Livros
             <a class="pull-right btn btn-xs btn-success" href="#/livros/add"><i class="glyphicon glyphicon-plus"></i> Adicionar Novo</a>
         </div>    
-            <div class="panel-body">
+            <div class="panel-body">                
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th style="width:40px">
-                                    #
-                                </th>
-                                <th>
-                                    <i id="iSort" ng-click="vm.alterSort('Titulo')" ng-show="vm.sort == 'asc'" class="glyphicon glyphicon-sort-by-attributes pull-right"></i>
-                                    <i id="iSort" ng-click="vm.alterSort('Titulo')" ng-show="vm.sort == 'desc'" class="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
-                                    Título
-                                </th>
-                                <th style="width:50px">
-                                    <i id="iSort" ng-click="vm.alterSort('Valor')" ng-show="vm.sort == 'asc'" class="glyphicon glyphicon-sort-by-attributes pull-right"></i>
-                                    <i id="iSort" ng-click="vm.alterSort('Valor')" ng-show="vm.sort == 'desc'" class="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
-                                    Valor
-                                </th>
-                                <th style="width:50px">
-                                    <i id="iSort" ng-click="vm.alterSort('Quantidade')" ng-show="vm.sort == 'asc'" class="glyphicon glyphicon-sort-by-attributes pull-right"></i>
-                                    <i id="iSort" ng-click="vm.alterSort('Quantidade')" ng-show="vm.sort == 'desc'" class="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
-                                    Quantidade
-                                </th>
-                                <th>
-                                    <i id="iSort" ng-click="vm.alterSort('Autor')" ng-show="vm.sort == 'asc'" class="glyphicon glyphicon-sort-by-attributes pull-right"></i>
-                                    <i id="iSort" ng-click="vm.alterSort('Autor')" ng-show="vm.sort == 'desc'" class="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
-                                    Autor
-                                </th>
-                                <th>
-                                    <i id="iSort" ng-click="vm.alterSort('Autor')" ng-show="vm.sort == 'asc'" class="glyphicon glyphicon-sort-by-attributes pull-right"></i>
-                                    <i id="iSort" ng-click="vm.alterSort('Autor')" ng-show="vm.sort == 'desc'" class="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
-                                    Genero
-                                </th>
-                                <th style="width:70px">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="a in vm.livros">
-                                <th scope="row">{{a.Id}}</th>
-                                <td>{{a.Titulo}}</td>
-                                <td>{{a.Valor | currency : 'R$'}}</td>
-                                <td>{{a.Quantidade}}</td>
-                                <td>{{a.Autores.Nome}}</td>
-                                <td>{{a.Generos.Nome}}</td>
-                                <td>
+                    <table ng-table="vm.tableParams" show-filter="true"  class="table table-striped">                        
+                            <tr ng-repeat="a in $data">
+                                <td data-title="'#'" style="width:10px" sortable="'Id'">{{a.Id}}</td>
+                                <td data-title="'Título'" sortable="'Titulo'">{{a.Titulo}}</td>
+                                <td data-title="'Valor'" sortable="'Valor'">{{a.Valor | currency : 'R$'}}</td>
+                                <td data-title="'Quantidade'" sortable="'Quantidade'">{{a.Quantidade}}</td>
+                                <td data-title="'Autor'" sortable="'Autores.Nome'">{{a.Autores.Nome}}</td>
+                                <td data-title="'Genero'" sortable="'Generos.Nome'">{{a.Generos.Nome}}</td>
+                                <td data-title="'Ação'" style="width:80px">
                                     <button ng-click="vm.edit(a)" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-pencil"></i></button>
                                     <button ng-click="vm.delete(a)" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-trash"></i></button>
                                 </td>
-                            </tr>
-                        </tbody>
+                            </tr>                        
                     </table>
-                </div>
-                <ul uib-pagination total-items="vm.table.totalItems" first-text="<<" previous-text="<" next-text=">" ng-model="vm.table.currentPage" ng-change="vm.table.pageChanged()" items-per-page="vm.table.maxSize"></ul>              
-
+                </div>              
             </div>                    
     </div>
 </div>

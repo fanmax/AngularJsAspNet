@@ -2,7 +2,9 @@
 require('angular-route');
 require('angular-animate');
 require('angular-messages');
+require('angular-resource');
 require('angular-ui-bootstrap');
+require('ng-table');
 require('sweetalert');
 
 //Require Controllers
@@ -17,18 +19,18 @@ var GenerosService = require('./Services/GenerosService');
 var LivrosService = require('./Services/LivrosService');
 
 
-var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngMessages', 'ui.bootstrap']);
+var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngMessages', 'ngResource', 'ui.bootstrap', 'ngTable']);
 
 //Controllers
-app.controller('MainController', ['$scope', MainController]);
-app.controller('AutoresController', ['$routeParams', '$location', 'AutoresService', AutoresController]);
-app.controller('GenerosController', ['$routeParams', '$location', 'GenerosService', GenerosController]);
-app.controller('LivrosController', ['$routeParams', '$location', 'LivrosService', 'AutoresService', 'GenerosService', LivrosController]);
+app.controller('MainController', ['$scope', MainController]); 
+app.controller('AutoresController', AutoresController);
+app.controller('GenerosController', GenerosController);
+app.controller('LivrosController', LivrosController);
 
 //Services
-app.service('AutoresService', ['$http', '$httpParamSerializerJQLike', '$q', '$rootScope', AutoresService]);
-app.service('GenerosService', ['$http', '$httpParamSerializerJQLike', '$q', '$rootScope', GenerosService]);
-app.service('LivrosService', ['$http', '$httpParamSerializerJQLike', '$q', '$rootScope', LivrosService]);
+app.service('AutoresService', AutoresService);
+app.service('GenerosService', GenerosService);
+app.service('LivrosService', LivrosService);
 
 
 app.route = function (root, folder) {

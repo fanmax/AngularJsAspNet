@@ -17,6 +17,8 @@ namespace AngularJsAspNet.Controllers
         [HttpPost]
         public JsonResult list()
         {
+
+            var filter = Request.Form["filter"];
             int currentPage = Convert.ToInt32(Request.Form["currentPage"] == null ? "1" : Request.Form["currentPage"]);
             int maxSize = Convert.ToInt32(Request.Form["maxSize"] == null ? "10" : Request.Form["maxSize"]);
             string sortColumn = Request.Form["sortColumn"] == null ? "Id": Request.Form["sortColumn"];

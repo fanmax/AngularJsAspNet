@@ -1,54 +1,44 @@
-﻿module.exports = function ($routeParams, $location, AutoresService) {    
+﻿function AutoresController($routeParams, $location, NgTableParams, AutoresService) {
     
     var vm = this;
 
     vm.action = $routeParams.action;
 
-    vm.table = {
-        maxSize: 5,
-        totalItems: 1,
-        currentPage: 1,
-        sort: "asc",
-        sortColumn: "Id",
-        setPage: function (pageNo) {
-            vm.table.currentPage = pageNo;
-        },
-        pageChanged: function () {            
-            listAutores();
-        },
-        alterSort: function (column) {            
-            vm.table.sortColumn = column;
-            if (vm.table.sort == "asc") vm.table.sort = "desc"; else vm.table.sort = "asc";
-            listAutores();
-        },
-    };            
+    if (vm.action == "list") {
+        vm.tableParams = new NgTableParams({
+            page: 1,
+            sorting: { Nome: "asc" }
+        }, {
+            getData: function (params) {
 
-    vm.autores;
+                var param = {
+                    currentPage: params.page(),
+                    maxSize: params.count(),
+                    filter: params.filter(),
+                    sortColumn: "",
+                    sort: "",
+                    filter: params.filter()
+                };
+
+                if (params.orderBy()[0]) {
+                    var orderBy = params.orderBy()[0];
+                    param.sortColumn = orderBy.substring(1);
+                    param.sort = orderBy[0] == '+' ? 'asc' : 'desc';
+                }              
+
+                return AutoresService.list(param).then(function (response) {
+                    params.total(response.data.totalItems);
+                    return response.data.autores;
+                }, function (response) {
+                    swal("Ops!", "Ocorreu um erro!", "error");
+                });
+            }
+        });
+    }
 
     vm.autor;
 
-    if (vm.action == "edit") vm.autor = AutoresService.autor;
-
-    var listAutores = function () {
-      
-        var param = {
-            currentPage: vm.table.currentPage,
-            maxSize: vm.table.maxSize,
-            sortColumn: vm.table.sortColumn,
-            sort: vm.table.sort,
-        };
-        
-        AutoresService.list(param).then(function (response) {            
-            vm.autores = response.data.autores;
-            vm.table.totalItems = response.data.totalItems;
-        }, function (response) {
-            swal("Ops!", "Ocorreu um erro!", "error");
-        });
-        
-
-    };
-    
-    if (vm.action == "list") listAutores();
+    if (vm.action == "edit") vm.autor = AutoresService.autor;    
 
     vm.submitForm = function (data) {        
         if (vm.action == "add") insert(data);
@@ -102,3 +92,6 @@
         });
     }
 }
+
+AutoresController.$inject = ['$routeParams', '$location', 'NgTableParams', 'AutoresService'];
+module.exports = AutoresController;

@@ -6,33 +6,17 @@
         </div>    
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th style="width:40px">
-                                    #
-                                </th>
-                                <th>
-                                    <i id="iSort" ng-click="vm.alterSort('Id')" ng-show="vm.sort == 'asc'" class="glyphicon glyphicon-sort-by-attributes pull-right"></i>
-                                    <i id="iSort" ng-click="vm.alterSort('Nome')" ng-show="vm.sort == 'desc'" class="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
-                                    Nome
-                                </th>
-                                <th style="width:70px">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="a in vm.autores">
-                                <th scope="row">{{a.Id}}</th>
-                                <td>{{a.Nome}}</td>
-                                <td>
-                                    <button ng-click="vm.edit(a)" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-pencil"></i></button>
-                                    <button ng-click="vm.delete(a)" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
+                    <table ng-table="vm.tableParams" show-filter="true" class="table table-striped">
+                        <tr ng-repeat="a in $data">
+                            <td data-title="'#'" style="width:10px" sortable="'Id'">{{a.Id}}</td>
+                            <td data-title="'Nome'" sortable="'Nome'">{{a.Nome}}</td>
+                            <td data-title="'Ação'" style="width:80px">
+                                <button ng-click="vm.edit(a)" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-pencil"></i></button>
+                                <button ng-click="vm.delete(a)" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
                     </table>
-                </div>
-                    <ul uib-pagination total-items="vm.table.totalItems" first-text="<<" previous-text="<" next-text=">" ng-model="vm.table.currentPage" ng-change="vm.table.pageChanged()" items-per-page="vm.table.maxSize"></ul>
+                </div>                    
 
                 </div>                    
     </div>
