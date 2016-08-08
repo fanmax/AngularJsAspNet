@@ -11,18 +11,24 @@ Ninject - 07/08/2016
 EntityFramework 6.1.3 - 07/08/2016
 
 MySql - 07/08/2016
+
 Npm - 07/08/2016
 
 *AngularJS
+
 angular-animate - 07/08/2016
+
 angular-i18n - 07/08/2016
+
 angular-messages - 07/08/2016
+
 angular-resource - 07/08/2016
+
 angular-route - 07/08/2016
+
 angular-ui-bootstrap - 07/08/2016
+
 Ng-Table - 08/08/2016
-
-
 
 ##Acesse a pasta AngularJsAspNet
 via cmd execute >> npm install
