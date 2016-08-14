@@ -14,6 +14,8 @@ MySql - 07/08/2016
 
 Npm - 07/08/2016
 
+Gulp - 07/08/2016
+
 *AngularJS
 
 angular-animate - 07/08/2016
