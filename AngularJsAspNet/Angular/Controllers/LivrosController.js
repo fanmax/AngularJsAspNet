@@ -1,4 +1,4 @@
-﻿function LivrosController($routeParams, $location, LivrosService, NgTableParams, AutoresService, GenerosService) {
+﻿function LivrosController($routeParams, $location, $filter, LivrosService, NgTableParams, AutoresService, GenerosService) {
     
     var vm = this;  
 
@@ -31,7 +31,7 @@
                     param.sort = orderBy[0] == '+' ? 'asc' : 'desc';                    
                 }
 
-                console.log(param);
+                //console.log(param);
                 
 
                 return LivrosService.list(param).then(function (response) {
@@ -44,7 +44,13 @@
         });
     }
 
-    if (vm.action == "edit") vm.livro = LivrosService.livro;
+    if (vm.action == "edit") {
+        vm.livro = LivrosService.livro;
+        if (vm.livro == null) { $location.path('/livros/list'); }
+        vm.livro.Valor = $filter('number')(vm.livro.Valor, 2);
+        console.log(vm.livro.Valor);
+        
+    }
 
     if (vm.action == "edit" || vm.action == "add") {
         var param = {
@@ -125,5 +131,5 @@
 
 }
 
-LivrosController.$inject = ['$routeParams', '$location', 'LivrosService', 'NgTableParams', 'AutoresService', 'GenerosService'];
+LivrosController.$inject = ['$routeParams', '$location', '$filter', 'LivrosService', 'NgTableParams', 'AutoresService', 'GenerosService'];
 module.exports = LivrosController;
