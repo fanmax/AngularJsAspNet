@@ -47,9 +47,7 @@
     if (vm.action == "edit") {
         vm.livro = LivrosService.livro;
         if (vm.livro == null) { $location.path('/livros/list'); }
-        vm.livro.Valor = $filter('number')(vm.livro.Valor, 2);
-        console.log(vm.livro.Valor);
-        
+        vm.livro.Valor = $filter('number')(vm.livro.Valor, 2);               
     }
 
     if (vm.action == "edit" || vm.action == "add") {
